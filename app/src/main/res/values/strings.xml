@@ -7,4 +7,16 @@
     <string name="forgot_password">Forgot your password?</string>
     <string name="sign_in">Sign in</string>
     <string name="create_account">create new account</string>
+
+    <string name="signup">Sign up</string>
+    <string name="create_account_signup">Create Account</string>
+    <string name="create_account_dic">create an account so you can explore all the existing jobs</string>
+    <string name="signup_name">Name</string>
+    <string name="signup_contact">Contact No</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_accounnt">Already have an account</string>
+
+
+    <string name="f_password">Forgot Password</string>
+    <string name="change_password">Change Password</string>
 </resources>
