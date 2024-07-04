@@ -2,6 +2,7 @@ package com.example.internshipproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     System.out.print("Login Successfully");
                     Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     Snackbar.make(view,"Login Successfully",Snackbar.LENGTH_LONG).show();
+                    Intent intent = new Intent(MainActivity.this,DashboatdActivity.class);
+                    startActivity(intent);
                 }
             }
         });
