@@ -13,6 +13,9 @@
         android:theme="@style/Theme.InternshipProject"
         tools:targetApi="31">
         <activity
+            android:name=".extraActivity"
+            android:exported="false" />
+        <activity
             android:name=".createAccount"
             android:exported="false" />
         <activity

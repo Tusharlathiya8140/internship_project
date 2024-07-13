@@ -4,10 +4,13 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="fontFamily">@font/bree_serif</item>
-        <item name="android:background">@color/white</item>
     </style>
 
     <style name="Theme.InternshipProject" parent="Base.Theme.InternshipProject" />
+
+    <style name="bg_style" >
+        <item name="android:background">@color/white</item>
+    </style>
 
     <style name="text_20" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>

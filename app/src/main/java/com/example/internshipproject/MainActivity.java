@@ -3,10 +3,14 @@ package com.example.internshipproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,18 +23,45 @@ public class MainActivity extends AppCompatActivity {
     EditText email,password;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     TextView forgotPassword,createAccount;
+    ImageView hideIv,showIv;
 
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        db=openOrCreateDatabase("internshipproject.db",MODE_PRIVATE,null);
+        String tableQuery = "CREATE TABLE IF NOT EXISTS USERS(USERID INTEGER PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(50), EMAIL VARCHAR(50), CONTACT BIGINT(10), PASSWORD VARCHAR(20))";
+        db.execSQL(tableQuery);
+
         signin = findViewById(R.id.main_signin);
         email = findViewById(R.id.main_email);
         password = findViewById(R.id.main_password);
         forgotPassword = findViewById(R.id.main_forgotpassword);
         createAccount = findViewById(R.id.main_createaccount);
+
+        hideIv = findViewById(R.id.main_password_hide);
+        showIv = findViewById(R.id.main_password_show);
+
+        hideIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideIv.setVisibility(View.GONE);
+                showIv.setVisibility(View.VISIBLE);
+                password.setTransformationMethod(null);
+            }
+        });
+
+        showIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showIv.setVisibility(View.GONE);
+                hideIv.setVisibility(View.VISIBLE);
+                password.setTransformationMethod(new PasswordTransformationMethod());
+            }
+        });
 
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +95,19 @@ public class MainActivity extends AppCompatActivity {
                     password.setError("Min. 6 Char password required");
                 }
                 else {
-                    System.out.print("Login Successfully");
-                    Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(v,"Login Successfully",Snackbar.LENGTH_LONG).show();
-                    Intent intent = new Intent(MainActivity.this,DashboatdActivity.class);
-                    startActivity(intent);
+                    String selectQuery = "SELECT * FROM USERS WHERE EMAIL = '"+email.getText().toString()+"' AND PASSWORD = '"+password.getText().toString()+"'";
+                    Cursor cursor = db.rawQuery(selectQuery,null);
+                    if(cursor.getCount()>0){
+                        System.out.print("Login Successfully");
+                        Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
+//                      Snackbar.make(v,"Login Successfully",Snackbar.LENGTH_LONG).show();
+                        Intent intent = new Intent(MainActivity.this,DashboatdActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this, "Invalid EmailId/Password.", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });
