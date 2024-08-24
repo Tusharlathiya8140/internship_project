@@ -5,34 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".createAccount">
+    tools:context=".ProfileActivity">
 
-    <TextView
-        style="@style/text_20"
-        android:text="@string/create_account"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/blue" />
-
-    <TextView
-        style="@style/text_14"
-        android:text="@string/create_account_dic"
-        android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/signup_name"
+        android:id="@+id/profile_name"
         style="@style/edit_16"
         android:hint="@string/name"
         android:textColorHint="@color/gray"
         android:drawableLeft="@drawable/profile"
         android:inputType="text"
-        android:layout_marginTop="@dimen/_10sdp" />
+        android:layout_marginTop="@dimen/_50sdp" />
+
     <EditText
-        android:id="@+id/signup_contact"
+        android:id="@+id/profile_contact"
         style="@style/edit_16"
         android:hint="@string/contact"
         android:textColorHint="@color/gray"
@@ -42,7 +28,7 @@
         android:layout_marginTop="@dimen/_10sdp" />
 
     <EditText
-        android:id="@+id/signup_email"
+        android:id="@+id/profile_email"
         style="@style/edit_16"
         android:hint="@string/email"
         android:textColorHint="@color/gray"
@@ -51,7 +37,7 @@
         android:layout_marginTop="@dimen/_10sdp" />
 
     <EditText
-        android:id="@+id/signup_password"
+        android:id="@+id/profile_password"
         style="@style/edit_16"
         android:hint="@string/password"
         android:textColorHint="@color/gray"
@@ -60,7 +46,8 @@
         android:layout_marginTop="@dimen/_10sdp" />
 
     <EditText
-        android:id="@+id/signup_confirm_password"
+        android:visibility="gone"
+        android:id="@+id/profile_confirm_password"
         style="@style/edit_16"
         android:hint="@string/confirm_password"
         android:textColorHint="@color/gray"
@@ -69,18 +56,20 @@
         android:layout_marginTop="@dimen/_10sdp" />
 
     <Button
-        android:id="@+id/signup"
+        android:visibility="visible"
+        android:id="@+id/edit_profile"
         style="@style/button_16"
-        android:text="@string/signup"
+        android:text="@string/edit_profile"
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/_20sdp" />
 
-    <TextView
-        android:id="@+id/signup_already_account"
-        style="@style/text_14"
-        android:text="@string/already_accounnt"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_gravity="center"
-        android:textStyle="bold" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/submit"
+        style="@style/button_16"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:layout_marginTop="@dimen/_20sdp" />
 
+   
 </LinearLayout>

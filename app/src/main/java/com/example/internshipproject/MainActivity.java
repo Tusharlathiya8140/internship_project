@@ -3,6 +3,7 @@ package com.example.internshipproject;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -27,10 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
     SQLiteDatabase db;
 
+    SharedPreferences sp;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sp = getSharedPreferences(ConstantSP.PREF,MODE_PRIVATE);
 
         db=openOrCreateDatabase("internshipproject.db",MODE_PRIVATE,null);
         String tableQuery = "CREATE TABLE IF NOT EXISTS USERS(USERID INTEGER PRIMARY KEY AUTOINCREMENT, NAME VARCHAR(50), EMAIL VARCHAR(50), CONTACT BIGINT(10), PASSWORD VARCHAR(20))";
@@ -95,13 +101,21 @@ public class MainActivity extends AppCompatActivity {
                     password.setError("Min. 6 Char password required");
                 }
                 else {
-                    String selectQuery = "SELECT * FROM USERS WHERE EMAIL = '"+email.getText().toString()+"' AND PASSWORD = '"+password.getText().toString()+"'";
+                    String selectQuery = "SELECT * FROM USERS WHERE (EMAIL = '"+email.getText().toString()+"' OR CONTACT = '"+email.getText().toString()+"') AND PASSWORD = '"+password.getText().toString()+"'";
                     Cursor cursor = db.rawQuery(selectQuery,null);
                     if(cursor.getCount()>0){
+                        while (cursor.moveToNext()){
+                            sp.edit().putString(ConstantSP.USERID,cursor.getString(0)).commit();
+                            sp.edit().putString(ConstantSP.NAME,cursor.getString(1)).commit();
+                            sp.edit().putString(ConstantSP.EMAIL,cursor.getString(2)).commit();
+                            sp.edit().putString(ConstantSP.CONTACT,cursor.getString(3)).commit();
+                            sp.edit().putString(ConstantSP.PASSWORD,cursor.getString(4)).commit();
+                        }
+
                         System.out.print("Login Successfully");
                         Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
 //                      Snackbar.make(v,"Login Successfully",Snackbar.LENGTH_LONG).show();
-                        Intent intent = new Intent(MainActivity.this,DashboatdActivity.class);
+                        Intent intent = new Intent(MainActivity.this, dashboard.class);
                         startActivity(intent);
                     }
                     else {
